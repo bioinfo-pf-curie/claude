@@ -6,16 +6,17 @@ Claude configuration template: personal `CLAUDE.md`, skills, sub-agents and a `s
 
 ```
 .
-├── CLAUDE.md                        # personal instructions loaded in every session
 ├── skills/                          # custom skills (one folder per skill, with SKILL.md)
 ├── agents/                          # custom sub-agents (one .md file per agent)
 └── settings/
+    ├── README.md                    # role and good practices for CLAUDE.md and settings.json
+    ├── CLAUDE.md                    # personal instructions loaded in every session
     └── settings.example.json        # example settings: privacy env vars and permission rules
 ```
 
 ## Install
 
-- Symlink or copy `CLAUDE.md` to `~/.claude/CLAUDE.md`.
+- Symlink or copy `settings/CLAUDE.md` to `~/.claude/CLAUDE.md`.
 - Symlink or copy `skills/*` to `~/.claude/skills/`.
 - Symlink or copy `agents/*` to `~/.claude/agents/`.
 - Merge `settings/settings.example.json` into `~/.claude/settings.json`.
@@ -24,7 +25,7 @@ Claude configuration template: personal `CLAUDE.md`, skills, sub-agents and a `s
 Example with symlinks:
 
 ```bash
-ln -s "$PWD/CLAUDE.md" ~/.claude/CLAUDE.md
+ln -s "$PWD/settings/CLAUDE.md" ~/.claude/CLAUDE.md
 ```
 
 ## Notes
