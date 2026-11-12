@@ -67,6 +67,9 @@ Project settings override user settings. For permissions, `deny` always wins ove
 | `permissions.deny` | Always refused: reading credentials (`~/.ssh`, `~/.gnupg`, `~/.aws`, `.env*`, `*.pem`, `*.key`), `~/donnees-sensibles/`, and `sudo`. |
 | `permissions.ask` | Always confirmed: `git push`, `git reset --hard`, `git clean`, `rm`, transfers (`scp`, `rsync`, `ssh`, `curl`, `wget`), `docker push`, cluster jobs (`sbatch`, `srun`, `qsub`). |
 
+About `blockReadsOutsideWorkingDirectories`: reads outside `~/claude/projects` and `~/Gitlab` are refused outright,
+Claude does not ask for approval. If you occasionally need another folder, type `/add-dir <path>` in the session.
+
 Rule behaviour:
 - Precedence is `deny` > `ask` > `allow`.
 - A `Read` deny rule also blocks edits of the same path.
