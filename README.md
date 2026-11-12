@@ -8,6 +8,7 @@ Claude configuration template: personal `CLAUDE.md`, skills, sub-agents and a `s
 .
 ├── skills/                          # custom skills (one folder per skill, with SKILL.md)
 ├── agents/                          # custom sub-agents (one .md file per agent)
+├── templates/                       # reusable text templates (e.g. AI_DISCLOSURE.md)
 └── settings/
     ├── README.md                    # role and good practices for CLAUDE.md and settings.json
     ├── CLAUDE.md                    # personal instructions loaded in every session

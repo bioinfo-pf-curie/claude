@@ -15,6 +15,8 @@
   NEVER invent a bibliographic reference. Check and cite your sources.
 - Writing: professional and scientific tone, short sentences, no marketing hype.
 - Code: Python, R, Bash; workflows in Nextflow; environments with conda/mamba, Docker, Singularity/Apptainer.
+- When creating or significantly changing a project, check its README for an AI Disclosure section.
+  If missing, propose one from templates/AI_DISCLOSURE.md in the ai/claude repo. Never choose the level yourself: ask me.
 
 # What you NEVER do without my explicit approval
 
