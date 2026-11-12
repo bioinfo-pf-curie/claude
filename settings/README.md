@@ -58,15 +58,40 @@ Project settings override user settings. For permissions, `deny` always wins ove
 | Key | Effect |
 |-----|--------|
 | `cleanupPeriodDays` | Local conversation transcripts older than N days are deleted at startup (default 30). |
-| `env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` | Disables non-essential network traffic: telemetry, error reporting, `/bug`, auto-updates. Update Claude Code manually. |
-| `env.DISABLE_TELEMETRY` | Disables anonymous usage statistics (redundant with the line above, kept for clarity). |
-| `env.DISABLE_ERROR_REPORTING` | Disables crash reports (redundant with the line above, kept for clarity). |
-| `permissions.additionalDirectories` | Folders Claude may work in besides the launch folder. Access elsewhere requires approval. |
-| `permissions.deny` | Tool calls that are always refused (e.g. reading `~/.ssh`, `.env`, keys). |
-| `permissions.ask` | Tool calls that always require confirmation (e.g. `git push`, `rm`, network transfers). |
+| `env.DISABLE_TELEMETRY` | Disables anonymous usage statistics. |
+| `env.DISABLE_ERROR_REPORTING` | Disables crash reports. |
+| `permissions.additionalDirectories` | Folders Claude may work in besides the launch folder: `~/claude/projects` and `~/Gitlab`. |
+| `permissions.blockReadsOutsideWorkingDirectories` | Blocks file reads outside the launch folder and `additionalDirectories`. |
+| `permissions.disableBypassPermissionsMode` | `"disable"` prevents starting Claude in "bypass permissions" mode. |
+| `permissions.allow` | Frequent read-only commands run without a prompt (`git status`, `git diff`, `git log`, `nextflow config`). |
+| `permissions.deny` | Always refused: reading credentials (`~/.ssh`, `~/.gnupg`, `~/.aws`, `.env*`, `*.pem`, `*.key`), `~/donnees-sensibles/`, and `sudo`. |
+| `permissions.ask` | Always confirmed: `git push`, `git reset --hard`, `git clean`, `rm`, transfers (`scp`, `rsync`, `ssh`, `curl`, `wget`), `docker push`, cluster jobs (`sbatch`, `srun`, `qsub`). |
+
+Rule behaviour:
+- Precedence is `deny` > `ask` > `allow`.
+- A `Read` deny rule also blocks edits of the same path.
+- Bash rules use the space form `Bash(cmd *)`; the older `Bash(cmd:*)` form is equivalent.
+- `WebFetch` is left unrestricted on purpose, to keep documentation searches fluid.
 
 None of these settings stop prompts and the files Claude reads from being sent to the model: that is how Claude works.
 Keep sensitive data out of the folders Claude can access.
+
+### Not enabled on purpose: `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`
+
+This variable disables all nonessential traffic: auto-updates, telemetry, error reporting, `/feedback` and feature-flag fetching.
+It therefore makes Remote Control unavailable (driving a local session from claude.ai or the mobile app).
+We keep Remote Control, so only `DISABLE_TELEMETRY` and `DISABLE_ERROR_REPORTING` are set.
+Enable it if you never use Remote Control, and then update Claude Code manually.
+
+### Optional: sandbox
+
+```json
+"sandbox": { "enabled": true }
+```
+
+Permission `deny` rules cover Claude's file tools and the commands it recognises (`cat`, `head`, `sed`, redirections),
+but not a script that opens files by itself. The sandbox enforces filesystem and network limits at OS level for Bash commands.
+On Linux it requires bubblewrap; the `/sandbox` command enables it interactively.
 
 ### Good practices
 

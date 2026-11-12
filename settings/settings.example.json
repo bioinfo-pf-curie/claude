@@ -1,33 +1,27 @@
 {
   "cleanupPeriodDays": 30,
   "env": {
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPORTING": "1"
   },
   "permissions": {
-    "additionalDirectories": [
-      "~/claude/projects",
-      "~/Gitlab"
+    "additionalDirectories": ["~/claude/projects", "~/Gitlab"],
+    "blockReadsOutsideWorkingDirectories": true,
+    "disableBypassPermissionsMode": "disable",
+    "allow": [
+      "Bash(git status *)", "Bash(git diff *)", "Bash(git log *)", "Bash(nextflow config *)"
     ],
     "deny": [
-      "Read(~/.ssh/**)",
-      "Read(~/.gnupg/**)",
-      "Read(~/.aws/**)",
-      "Read(**/.env)",
-      "Read(**/.env.*)",
-      "Read(**/*.pem)",
-      "Read(**/*.key)",
-      "Read(~/donnees-sensibles/**)"
+      "Read(~/.ssh/**)", "Read(~/.gnupg/**)", "Read(~/.aws/**)",
+      "Read(**/.env)", "Read(**/.env.*)", "Read(**/*.pem)", "Read(**/*.key)",
+      "Read(~/donnees-sensibles/**)",
+      "Bash(sudo *)"
     ],
     "ask": [
-      "Bash(git push:*)",
-      "Bash(rm:*)",
-      "Bash(scp:*)",
-      "Bash(rsync:*)",
-      "Bash(curl:*)",
-      "Bash(wget:*)",
-      "WebFetch"
+      "Bash(git push *)", "Bash(git reset --hard *)", "Bash(git clean *)",
+      "Bash(rm *)", "Bash(scp *)", "Bash(rsync *)", "Bash(ssh *)",
+      "Bash(curl *)", "Bash(wget *)", "Bash(docker push *)",
+      "Bash(sbatch *)", "Bash(srun *)", "Bash(qsub *)"
     ]
   }
 }
