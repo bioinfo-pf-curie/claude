@@ -68,7 +68,7 @@ Project settings override user settings. For permissions, `deny` always wins ove
 | `permissions.ask` | Always confirmed: `git push`, `git reset --hard`, `git clean`, `rm`, transfers (`scp`, `rsync`, `ssh`, `curl`, `wget`), `docker push`, cluster jobs (`sbatch`, `srun`, `qsub`). |
 
 About `blockReadsOutsideWorkingDirectories`: reads outside `~/claude/projects` and `~/Gitlab` are refused outright,
-Claude does not ask for approval. If you occasionally need another folder, type `/add-dir <path>` in the session.
+Claude does not ask for approval. If you occasionally need another folder, type `/add-dir <path>` in the session (or start Claude with `--add-dir <path>`).
 
 Rule behaviour:
 - Precedence is `deny` > `ask` > `allow`.
