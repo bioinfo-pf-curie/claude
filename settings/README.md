@@ -22,6 +22,8 @@ Anything that must never happen (reading keys, pushing code) belongs in `setting
 
 ### Where it is read from
 
+**Of note, you can decide to set up the setting globally for all projects, or locally, per project**
+
 | Location | Scope |
 |----------|-------|
 | `~/.claude/CLAUDE.md` | User: every project on this machine |
@@ -60,12 +62,12 @@ Project settings override user settings. For permissions, `deny` always wins ove
 | `cleanupPeriodDays` | Local conversation transcripts older than N days are deleted at startup (default 30). |
 | `env.DISABLE_TELEMETRY` | Disables anonymous usage statistics. |
 | `env.DISABLE_ERROR_REPORTING` | Disables crash reports. |
-| `permissions.additionalDirectories` | Folders Claude may work in besides the launch folder: `~/claude/projects` and `~/Gitlab`. |
+| `permissions.additionalDirectories` | Folders Claude may work in besides the launch folder. |
 | `permissions.blockReadsOutsideWorkingDirectories` | Blocks file reads outside the launch folder and `additionalDirectories`. |
 | `permissions.disableBypassPermissionsMode` | `"disable"` prevents starting Claude in "bypass permissions" mode. |
 | `permissions.allow` | Frequent read-only commands run without a prompt (`git status`, `git diff`, `git log`, `nextflow config`). |
-| `permissions.deny` | Always refused: reading credentials (`~/.ssh`, `~/.gnupg`, `~/.aws`, `.env*`, `*.pem`, `*.key`), `~/donnees-sensibles/`, and `sudo`. |
-| `permissions.ask` | Always confirmed: `git push`, `git reset --hard`, `git clean`, `rm`, transfers (`scp`, `rsync`, `ssh`, `curl`, `wget`), `docker push`, cluster jobs (`sbatch`, `srun`, `qsub`). |
+| `permissions.deny` | Always refused: reading credentials (`~/.ssh`, `~/.gnupg`, `~/.aws`, `.env*`, `*.pem`, `*.key`), and `sudo`. |
+| `permissions.ask` | Always confirmed: `git push`, `git reset --hard`, `git clean`, `rm`, transfers (`scp`, `rsync`, `ssh`, `curl`, `wget`), `docker push`, cluster jobs (`sbatch`, `srun`). |
 
 About `blockReadsOutsideWorkingDirectories`: reads outside `~/claude/projects` and `~/Gitlab` are refused outright,
 Claude does not ask for approval. If you occasionally need another folder, type `/add-dir <path>` in the session (or start Claude with `--add-dir <path>`).
@@ -74,7 +76,6 @@ Rule behaviour:
 - Precedence is `deny` > `ask` > `allow`.
 - A `Read` deny rule also blocks edits of the same path.
 - Bash rules use the space form `Bash(cmd *)`; the older `Bash(cmd:*)` form is equivalent.
-- `WebFetch` is left unrestricted on purpose, to keep documentation searches fluid.
 
 None of these settings stop prompts and the files Claude reads from being sent to the model: that is how Claude works.
 Keep sensitive data out of the folders Claude can access.
@@ -83,8 +84,7 @@ Keep sensitive data out of the folders Claude can access.
 
 This variable disables all nonessential traffic: auto-updates, telemetry, error reporting, `/feedback` and feature-flag fetching.
 It therefore makes Remote Control unavailable (driving a local session from claude.ai or the mobile app).
-We keep Remote Control, so only `DISABLE_TELEMETRY` and `DISABLE_ERROR_REPORTING` are set.
-Enable it if you never use Remote Control, and then update Claude Code manually.
+If you wan to keep Remote Control, only set `DISABLE_TELEMETRY` and `DISABLE_ERROR_REPORTING`.
 
 ### Optional: sandbox
 

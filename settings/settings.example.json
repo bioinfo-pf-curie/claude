@@ -1,4 +1,6 @@
 {
+  "theme": "dark",
+  "switchModelsOnFlag": true,
   "cleanupPeriodDays": 30,
   "env": {
     "DISABLE_TELEMETRY": "1",

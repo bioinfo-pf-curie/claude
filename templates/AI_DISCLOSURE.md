@@ -24,7 +24,7 @@ AI was used solely to assist in writing this README, generating inline code comm
 ```markdown
 ## AI Disclosure
 
-AI tools (e.g. GitHub Copilot) were used as advanced autocomplete during development.
+AI tools were used as advanced autocomplete during development.
 
 - **Human Ownership:** all logic, architecture and complex problem-solving were authored and directed by the developer.
 ```
@@ -36,7 +36,7 @@ AI tools (e.g. GitHub Copilot) were used as advanced autocomplete during develop
 ```markdown
 ## AI Disclosure
 
-AI tools (e.g. Claude, ChatGPT) were used to:
+AI tools were used to:
 
 - Generate boilerplate and utility functions.
 - Refactor code.
