@@ -3,13 +3,17 @@
 This guideline covers individual use: choosing the right tool, asking well, configuring Claude Desktop and
 Claude Code, making them learn, and staying in control of what they produce.
 
-Before anything else, check which data you may share with Claude:
+**Sharing sensitive data with Claude is strictly forbidden**: patient data, individual-level genomic data, HR
+information, confidential evaluations, etc. Non-sensitive internal data can be used freely;
+internal confidential material (unpublished projects, budgets, internal reports) only within the scope of the
+institutional contract.
 
-| Level | Examples | With Claude? |
-|---|---|---|
-| Non-sensitive internal data | Open-source code, published papers, logistics emails | Yes |
-| Internal confidential | Unpublished projects, budgets, internal reports | Yes, within the scope of the institutional contract |
-| Sensitive | Patient data, individual-level genomic data, HR, named evaluations, embargoed manuscripts, credentials | No, strictly forbidden |
+**Use your organisation account, not a personal one.** On organisation accounts (Team, Enterprise) and the API,
+Anthropic's commercial terms exclude training models on your conversations and files by default: there is nothing
+to set. On personal accounts (Free, Pro, Max), a setting in **Settings > Privacy** allows your conversations to be
+used for training: turn it off if you ever use one. Claude Code follows the account you log in with; nothing in
+`settings.json` controls training (`DISABLE_TELEMETRY` only stops usage statistics). Feedback you send on purpose
+(thumbs up/down, `/feedback`) may be kept separately: never send it on a conversation holding confidential content.
 
 ---
 
@@ -57,7 +61,7 @@ Decision tree:
 1. Do you need to discuss, draft, summarise or think something through? **Claude Desktop, Chat**.
 2. Is it a topic you will come back to over days or weeks, with reference documents? **Claude Desktop, inside a Project**.
 3. Do you need to work in a repository, run your tools, or change many files at once? **Claude Code**.
-4. Does the task involve sensitive data? **Neither**. Stop and see the table above.
+4. Does the task involve sensitive data? **Neither**. Sharing sensitive data is strictly forbidden.
 
 | Task | Tool |
 |---|---|
@@ -255,22 +259,26 @@ measure: a "critical reviewer" agent cannot modify anything.
 
 ---
 
-## Getting started in four weeks
+## Getting started
 
-**Week 1: secure**
-- [ ] Ask the IT/security/DPO team about the contract, retention and the policy on health and genomic data.
-- [ ] Claude Code: merge `settings.example.json` into `~/.claude/settings.json`, add your sensitive paths, validate the JSON.
-- [ ] Claude Desktop: review enabled connectors; disable unused ones.
+### Prepare your environment
 
-**Week 2: introduce yourself**
-- [ ] Claude Code: fill in `~/.claude/CLAUDE.md` from the template (30 minutes is enough), add a `CLAUDE.md` to one or two active repositories.
-- [ ] Claude Desktop: paste your profile preferences from `settings/desktop-preferences.md`, create a Project for your main recurring topic.
+- [ ] Claude Code - merge `settings.example.json` into `~/.claude/settings.json`, add your sensitive paths, validate the JSON.
+- [ ] Claude Code - fill in `~/.claude/CLAUDE.md` from the template, add a `CLAUDE.md` to one or two active repositories.
+- [ ] Claude Desktop - review enabled connectors; disable unused ones.
+- [ ] Claude Desktop - paste your profile preferences from `settings/desktop-preferences.md`, create a Project for your main recurring topic.
 
-**Weeks 3-4: equip**
+### Create your own skills
+
 - [ ] List your five most repetitive tasks.
 - [ ] Create two or three skills for the most frequent ones, use them, fix them after each disappointing run.
+- [ ] To use a skill in Claude Desktop, zip its folder and upload it in Settings > Capabilities.
 
-**Ongoing: make it learn**
+### Make Claude learn
+
 - [ ] Correct Claude explicitly and ask it to remember.
 - [ ] Monthly: review memory, promote stable rules to `CLAUDE.md`.
+
+### Maintain
+
 - [ ] Quarterly: review permissions and connectors.
