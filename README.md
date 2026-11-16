@@ -32,3 +32,13 @@ it produces.
 
 Propose a new skill, template or guideline change through a merge request. Keep everything generic:
 no personal details, no internal paths, no credentials.
+
+## AI Disclosure
+
+This repository was written with the help of AI (Claude).
+
+- **Process:** most guidelines, templates and skills were drafted by Claude from detailed instructions,
+  then reviewed, corrected and restructured by the maintainers over several iterations.
+- **Human role:** scope, structure, rules and final wording were decided by the maintainers; every file was reviewed
+  before being committed.
+- **Responsibility:** the maintainers take full responsibility for the content.
