@@ -248,7 +248,7 @@ measure: a "critical reviewer" agent cannot modify anything.
 
 ---
 
-## 5. VS Code
+## <img src="figures/logos/vscode.png" alt="" width="22"> 5. VS Code
 
 ### Configure it
 

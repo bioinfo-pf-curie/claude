@@ -153,7 +153,7 @@ Claude Code is a contributor like any other: its work goes through the same merg
 - **Before a merge request**, ask Claude to review your own diff ("review this branch against main").
 - **Reviewing a colleague's merge request** with Claude is fine as a first pass. Your review and your approval
   remain yours.
-Sharing a merge request review:
+<img src="figures/logos/gitlab.svg" alt="" width="20"> Sharing a merge request review:
 
 ![Sharing a merge request review](figures/mr-review.svg)
 
