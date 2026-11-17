@@ -1,3 +1,5 @@
+<p align="center"><img src="guidelines/figures/logos/claude_head.svg" alt="Claude" width="260"></p>
+
 # Claude good practices
 
 Guidelines, templates and reusable skills for using Claude well, on your own and as a team: which tool to pick,

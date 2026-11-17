@@ -143,7 +143,7 @@ Good habits:
 
 ---
 
-## 3. Claude Desktop
+## <img src="figures/logos/claude.svg" alt="" width="22"> 3. Claude Desktop
 
 ### Configure it
 
@@ -189,7 +189,7 @@ holds the text to paste in your profile and a template for Project instructions.
 
 ---
 
-## 4. Claude Code
+## <img src="figures/logos/claude.svg" alt="" width="22"> 4. Claude Code
 
 ### Configure it
 
@@ -248,7 +248,7 @@ measure: a "critical reviewer" agent cannot modify anything.
 
 ---
 
-## <img src="figures/logos/vscode.png" alt="" width="22"> 5. VS Code
+## <img src="figures/logos/vscode.svg" alt="" width="22"> 5. VS Code
 
 ### Configure it
 

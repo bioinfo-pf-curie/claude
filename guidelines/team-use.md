@@ -33,7 +33,7 @@ forbidden, and only organisation accounts are used for work.
 
 ---
 
-## 2. Claude Desktop
+## <img src="figures/logos/claude.svg" alt="" width="22"> 2. Claude Desktop
 
 ### Shared Projects
 
@@ -87,7 +87,7 @@ Settings > Capabilities. Each member does it on their own account.
 
 ---
 
-## 3. Claude Code
+## <img src="figures/logos/claude.svg" alt="" width="22"> 3. Claude Code
 
 In Claude Code, Projects always use the coordinator (beta) and stay personal: **the shared space is the git
 repository**. Context, permissions and skills are versioned there, and results (reviews, issue triage) are
