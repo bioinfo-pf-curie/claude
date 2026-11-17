@@ -131,6 +131,9 @@ This repository is the team's library: `skills/` and `agents/` hold what we foun
 
 To add a skill:
 
+![Life cycle of a team skill](figures/skill-lifecycle.svg)
+
+
 1. Write it and use it yourself first, on real tasks.
 2. Make it generic: no personal details, no project paths, `XXX` placeholders where needed.
 3. Write a `description` that starts with "Use when…": it decides when Claude loads the skill.

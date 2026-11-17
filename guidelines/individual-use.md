@@ -274,6 +274,10 @@ The permission mode is shown at the bottom of the prompt box:
 In the diff, accept or reject each change, or edit the proposed code before accepting it. Never use the
 "bypass permissions" mode outside an isolated sandbox.
 
+A typical working loop:
+
+![Working with Claude in VS Code](figures/vscode-loop.svg)
+
 ### Good practices
 
 - Open the repository folder itself, not your home directory.
