@@ -10,6 +10,8 @@ The team works with Claude in two complementary ways:
 - **Claude Code, through git repositories**, for code and configuration: project context, shared permissions,
   our library of skills. Everything is versioned and reviewed through merge requests.
 
+![Two ways of working with Claude as a team](figures/team-pillars.svg)
+
 **The individual rules apply to everyone, without exception**: sharing sensitive data with Claude is strictly
 forbidden, and only organisation accounts are used for work.
 
@@ -148,6 +150,10 @@ Claude Code is a contributor like any other: its work goes through the same merg
 - **Before a merge request**, ask Claude to review your own diff ("review this branch against main").
 - **Reviewing a colleague's merge request** with Claude is fine as a first pass. Your review and your approval
   remain yours.
+Sharing a merge request review:
+
+![Sharing a merge request review](figures/mr-review.svg)
+
 - **Attribution**: Claude Code adds a `Co-Authored-By: Claude` line to commits it writes. Keep it.
 - **Issues**: the [`review-issues`](../skills/review-issues/SKILL.md) skill helps triage a project's issues.
   It never closes or edits an issue without confirmation, and comments go out under your name.

@@ -50,6 +50,10 @@ Desktop can also call Claude Code for you: in a Chat Project, Claude may ask acc
 or start a Claude Code session there (Remote Control), always with your approval. It is convenient when a
 discussion leads to work on files, but it is less direct and less controlled than opening Claude Code yourself.
 
+What each tool reads:
+
+![What each Claude tool reads](figures/what-each-tool-reads.svg)
+
 ### When to prefer one or the other
 
 The question is not "which application" but **"a conversation, or work inside a folder?"**
@@ -63,12 +67,7 @@ The question is not "which application" but **"a conversation, or work inside a 
 
 Decision tree:
 
-1. Do you need to discuss, draft, summarise or think something through? **Claude Desktop, Chat**.
-2. Is it a topic you will come back to over days or weeks, with reference documents? **Claude Desktop, inside a Project**.
-3. Do you need to work on a set of documents or files in a folder? **Claude Desktop, Code tab**.
-4. Are you developing software (writing, debugging, testing code)? **VS Code with the Claude Code extension**
-   (or Claude Code in a terminal, less comfortable).
-5. Does the task involve sensitive data? **Neither**. Sharing sensitive data is strictly forbidden.
+![Which Claude tool for which need](figures/which-tool.svg)
 
 | Task | Tool |
 |---|---|
