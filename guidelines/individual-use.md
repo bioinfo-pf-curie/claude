@@ -17,7 +17,7 @@ used for training: turn it off if you ever use one. Claude Code follows the acco
 
 ---
 
-## 1. Two tools: Claude Desktop and Claude Code
+## 1. Three tools: Claude Desktop, Claude Code and VS Code
 
 ### What they are
 
@@ -32,6 +32,11 @@ forms that behave the same way and share the same configuration (`~/.claude/`):
 - the `claude` command in a terminal;
 - the extension for VS Code or JetBrains;
 - the **Code** tab of Claude Desktop.
+
+**VS Code with the Claude Code extension** is Claude Code inside a code editor. Claude works on the same folder
+as you, and you see each proposed change as a side-by-side diff that you accept or reject. For software
+development, it is the most comfortable way to work with Claude: in a terminal or in Desktop, files change
+without you really seeing them, while in VS Code you review every edit where you write code.
 
 ### How they fit together
 
@@ -60,18 +65,20 @@ Decision tree:
 
 1. Do you need to discuss, draft, summarise or think something through? **Claude Desktop, Chat**.
 2. Is it a topic you will come back to over days or weeks, with reference documents? **Claude Desktop, inside a Project**.
-3. Do you need to work in a repository, run your tools, or change many files at once? **Claude Code**.
-4. Does the task involve sensitive data? **Neither**. Sharing sensitive data is strictly forbidden.
+3. Do you need to work on a set of documents or files in a folder? **Claude Desktop, Code tab**.
+4. Are you developing software (writing, debugging, testing code)? **VS Code with the Claude Code extension**
+   (or Claude Code in a terminal, less comfortable).
+5. Does the task involve sensitive data? **Neither**. Sharing sensitive data is strictly forbidden.
 
 | Task | Tool |
 |---|---|
 | Prepare a meeting, draft a delicate email | Desktop |
 | Review a grant proposal or an evaluation report | Desktop (Project if recurrent) |
 | Summarise three PDF papers, build a slide deck | Desktop |
-| Write or debug a Nextflow pipeline | Code |
-| Understand an unfamiliar repository, add tests, review before a merge request | Code |
-| Produce a report from result files in a directory | Code |
-| Rework a thesis or a paper written in Markdown or LaTeX | Code |
+| Write or debug a Nextflow pipeline | VS Code |
+| Understand an unfamiliar repository, add tests, review before a merge request | VS Code |
+| Produce a report from result files in a directory | Desktop, Code tab |
+| Rework a thesis or a paper written in Markdown or LaTeX | Desktop, Code tab, or VS Code |
 
 Claude Code is not only for code: it suits any work on a set of files.
 
@@ -98,6 +105,11 @@ claude --add-dir ~/claude/projects # give access to one more folder
 claude -p "summarise the README"   # one-shot answer, no interactive session
 ```
 
+**VS Code**: install the **Claude Code** extension (publisher Anthropic) from the Extensions view
+(`Ctrl+Shift+X`); it needs VS Code 1.94 or later and your Claude account, no API key. Open your project folder,
+then click the Claude icon (spark) in the editor toolbar or the activity bar, or press `Ctrl+Esc`. The extension
+bundles its own Claude Code: to also run `claude` in VS Code's terminal, install the CLI as above.
+
 Inside a session: `/help` lists commands, `/doctor` checks the installation and configuration, `/<skill-name>`
 calls a skill, `/add-dir <path>` adds a folder, `/clear` starts a fresh context.
 
@@ -106,7 +118,7 @@ and relevant.
 
 ---
 
-## 2. Ask well (both tools)
+## 2. Ask well (all tools)
 
 Claude does not know what you have not told it. A good request contains four things:
 
@@ -235,17 +247,45 @@ measure: a "critical reviewer" agent cannot modify anything.
 - **Review every diff** before committing; run the tests yourself.
 - Do not use Claude Code on the web (claude.ai/code, in the cloud) for confidential manuscripts or data.
 
-### Good uses
+---
 
-| Activity | Typical uses |
-|---|---|
-| Bioinformatics and development | Write, debug, document and test pipelines; explore a codebase; review before merge |
-| Data analysis | Exploration, plots, statistics on non-sensitive or internal confidential data only |
-| Documents in a repository | Markdown or LaTeX papers and theses, reports built from result files |
+## 5. VS Code
+
+### Configure it
+
+The extension runs Claude Code, so **your Claude Code configuration applies**: the documentation states that
+`~/.claude/settings.json` (permissions, environment variables, MCP servers), the conversation history and plugins
+are shared between the extension and the CLI. The same `CLAUDE.md` files and skills are read in the folder you open;
+the extension's menus let you edit the `CLAUDE.md` files and list the skills. There is nothing extra to configure.
+
+Two differences with the terminal: only a subset of slash commands and skills is offered (type `/` to see them),
+and some CLI features (the `!` shortcut, tab completion) are missing. For those, run `claude` in VS Code's
+integrated terminal.
+
+### See and control every change
+
+The permission mode is shown at the bottom of the prompt box:
+
+| Mode | Behaviour | When |
+|---|---|---|
+| **Manual** | Claude asks before each file edit and most commands, and shows a side-by-side diff | Default; keep it while you learn |
+| **Plan** | Claude describes what it will do and waits for your approval; you can comment the plan | Large or risky changes |
+| **Edit automatically** | Claude edits without asking | Only on a clean git branch, to review afterwards |
+
+In the diff, accept or reject each change, or edit the proposed code before accepting it. Never use the
+"bypass permissions" mode outside an isolated sandbox.
+
+### Good practices
+
+- Open the repository folder itself, not your home directory.
+- Work on a dedicated git branch; use VS Code's Source Control panel to review the whole change set before committing.
+- Ask for a plan first on anything larger than a small fix, then let Claude execute it step by step.
+- Run the tests yourself before committing.
+- Continue a VS Code conversation in the terminal with `claude --resume` if needed: the history is shared.
 
 ---
 
-## 5. Check and stay in control (both tools)
+## 6. Check and stay in control (all tools)
 
 - **Claude can be confidently wrong.** Check figures, references, tool versions and scientific conclusions.
   Open every cited source before reusing it.
@@ -282,3 +322,13 @@ measure: a "critical reviewer" agent cannot modify anything.
 ### Maintain
 
 - [ ] Quarterly: review permissions and connectors.
+
+---
+
+## Summary: which tool for which need
+
+| Need | Tool |
+|---|---|
+| Chat, brainstorming, drafting, summarising documents you provide | Claude Desktop, Chat mode |
+| Acting on documents and files in a folder | Claude Desktop, Code mode (`</>`) |
+| Software development | VS Code with the Claude Code extension (or Claude Code in a terminal, less comfortable) |

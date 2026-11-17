@@ -62,12 +62,31 @@ Project settings override user settings. For permissions, `deny` always wins ove
 | `cleanupPeriodDays` | Local conversation transcripts older than N days are deleted at startup (default 30). |
 | `env.DISABLE_TELEMETRY` | Disables anonymous usage statistics. |
 | `env.DISABLE_ERROR_REPORTING` | Disables crash reports. |
+| `permissions.defaultMode` | `"auto"`: Claude runs commands without asking; a background classifier blocks risky actions (see below). |
 | `permissions.additionalDirectories` | Folders Claude may work in besides the launch folder. |
 | `permissions.blockReadsOutsideWorkingDirectories` | Blocks file reads outside the launch folder and `additionalDirectories`. |
 | `permissions.disableBypassPermissionsMode` | `"disable"` prevents starting Claude in "bypass permissions" mode. |
-| `permissions.allow` | Frequent read-only commands run without a prompt (`git status`, `git diff`, `git log`, `nextflow config`). |
-| `permissions.deny` | Always refused: reading credentials (`~/.ssh`, `~/.gnupg`, `~/.aws`, `.env*`, `*.pem`, `*.key`), and `sudo`. |
-| `permissions.ask` | Always confirmed: `git push`, `git reset --hard`, `git clean`, `rm`, transfers (`scp`, `rsync`, `ssh`, `curl`, `wget`), `docker push`, cluster jobs (`sbatch`, `srun`). |
+| `permissions.allow` | Common local commands run without a prompt, even outside auto mode: git (except push), file handling, text tools, tests and linters, read-only Nextflow, samtools, bcftools, Slurm queries. |
+| `permissions.deny` | Always refused: reading credentials (`~/.ssh`, `~/.gnupg`, `~/.aws`, `~/.kube`, `~/.netrc`, Docker, `gh`/`glab` tokens, `.env*`, `*.pem`, `*.key`), `sudo`/`su`, force push, `dd`, `mkfs`. |
+| `permissions.ask` | Always confirmed, even in auto mode: `git push`, `git reset --hard`, `git clean`, `rm`, `rmdir`, recursive `chmod`, `chown`, transfers (`scp`, `rsync`, `ssh`, `sftp`), `docker push`, PR/MR merges, cluster jobs (`sbatch`, `srun`, `qsub`). |
+
+### Why auto mode
+
+In the default (Manual) mode, Claude Code asks before every shell command that is not in a small built-in
+read-only set (`ls`, `cat`, `grep`, `find`, `git status`…) or in `allow`. That quickly means a prompt per command.
+
+With `"defaultMode": "auto"`, a classifier reviews each action instead of you. It lets local work through
+and blocks by default: `curl | bash`, sending sensitive data to external endpoints, force push,
+`git reset --hard` and other discards of uncommitted work, mass deletions, printing credentials, production deploys.
+`deny` rules still apply, and `ask` rules still prompt you: they are the actions you always want to see.
+
+- Requires a recent Claude Code (`claude update`) and a supported model (Opus 4.6+, Sonnet 4.6+); otherwise
+  the session starts in Manual mode and only the `allow` list avoids prompts.
+- `"defaultMode": "auto"` is read only from `~/.claude/settings.json`, not from a project's `.claude/settings.json`.
+- Switch modes during a session with Shift+Tab. Auto mode reduces prompts, it does not guarantee safety:
+  use it for tasks whose general direction you trust.
+- Broad allow rules on interpreters (`python *`, `Rscript *`) are ignored in auto mode; that is why the
+  example does not include them.
 
 About `blockReadsOutsideWorkingDirectories`: reads outside `~/claude/projects` and `~/Gitlab` are refused outright,
 Claude does not ask for approval. If you occasionally need another folder, type `/add-dir <path>` in the session (or start Claude with `--add-dir <path>`).
@@ -84,7 +103,7 @@ Keep sensitive data out of the folders Claude can access.
 
 This variable disables all nonessential traffic: auto-updates, telemetry, error reporting, `/feedback` and feature-flag fetching.
 It therefore makes Remote Control unavailable (driving a local session from claude.ai or the mobile app).
-If you wan to keep Remote Control, only set `DISABLE_TELEMETRY` and `DISABLE_ERROR_REPORTING`.
+If you want to keep Remote Control, only set `DISABLE_TELEMETRY` and `DISABLE_ERROR_REPORTING`.
 
 ### Optional: sandbox
 
@@ -99,7 +118,8 @@ On Linux it requires bubblewrap; the `/sandbox` command enables it interactively
 ### Good practices
 
 - Deny reads of credentials and sensitive folders explicitly; do not rely on `CLAUDE.md` for that.
-- Put irreversible or outward-facing actions in `ask` (push, delete, transfer, job submission).
+- Put irreversible or outward-facing actions in `ask` (push, delete, transfer, job submission), and nothing else:
+  every needless prompt trains you to click "Yes" without reading.
 - Allow frequent read-only commands (`git status`, `git diff`, `ls`) to avoid needless prompts.
 - Never copy your real `~/.claude/settings.json` into a shared repository without reviewing it.
 - Validate JSON after editing: `python -m json.tool settings.example.json`.

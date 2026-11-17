@@ -7,22 +7,45 @@
     "DISABLE_ERROR_REPORTING": "1"
   },
   "permissions": {
+    "defaultMode": "auto",
     "additionalDirectories": ["~/claude/projects", "~/Gitlab"],
     "blockReadsOutsideWorkingDirectories": true,
     "disableBypassPermissionsMode": "disable",
     "allow": [
-      "Bash(git status *)", "Bash(git diff *)", "Bash(git log *)", "Bash(nextflow config *)"
+      "Bash(git status *)", "Bash(git diff *)", "Bash(git log *)", "Bash(git show *)",
+      "Bash(git branch *)", "Bash(git switch *)", "Bash(git checkout -b *)",
+      "Bash(git add *)", "Bash(git commit *)", "Bash(git stash *)",
+      "Bash(git fetch *)", "Bash(git pull *)", "Bash(git remote -v)",
+      "Bash(mkdir *)", "Bash(touch *)", "Bash(cp *)", "Bash(mv *)",
+      "Bash(sort *)", "Bash(uniq *)", "Bash(cut *)", "Bash(tr *)", "Bash(awk *)",
+      "Bash(jq *)", "Bash(tree *)", "Bash(file *)", "Bash(zcat *)", "Bash(gzip -dc *)",
+      "Bash(md5sum *)", "Bash(sha256sum *)", "Bash(column *)",
+      "Bash(python -m json.tool *)", "Bash(python3 -m json.tool *)",
+      "Bash(pytest *)", "Bash(ruff *)", "Bash(black --check *)", "Bash(shellcheck *)",
+      "Bash(pip list *)", "Bash(pip show *)", "Bash(conda list *)", "Bash(conda env list *)",
+      "Bash(nextflow config *)", "Bash(nextflow log *)", "Bash(nextflow lint *)",
+      "Bash(nf-core lint *)", "Bash(nf-test test *)",
+      "Bash(samtools view *)", "Bash(samtools flagstat *)", "Bash(samtools idxstats *)",
+      "Bash(bcftools view *)", "Bash(bcftools stats *)",
+      "Bash(docker ps *)", "Bash(docker images *)",
+      "Bash(squeue *)", "Bash(sacct *)", "Bash(sinfo *)"
     ],
     "deny": [
-      "Read(~/.ssh/**)", "Read(~/.gnupg/**)", "Read(~/.aws/**)",
+      "Read(~/.ssh/**)", "Read(~/.gnupg/**)", "Read(~/.aws/**)", "Read(~/.kube/**)",
+      "Read(~/.netrc)", "Read(~/.docker/config.json)",
+      "Read(~/.config/gh/**)", "Read(~/.config/glab-cli/**)",
       "Read(**/.env)", "Read(**/.env.*)", "Read(**/*.pem)", "Read(**/*.key)",
       "Read(~/donnees-sensibles/**)",
-      "Bash(sudo *)"
+      "Bash(sudo *)", "Bash(su *)",
+      "Bash(git push --force *)", "Bash(git push -f *)",
+      "Bash(dd *)", "Bash(mkfs *)"
     ],
     "ask": [
       "Bash(git push *)", "Bash(git reset --hard *)", "Bash(git clean *)",
-      "Bash(rm *)", "Bash(scp *)", "Bash(rsync *)", "Bash(ssh *)",
-      "Bash(curl *)", "Bash(wget *)", "Bash(docker push *)",
+      "Bash(rm *)", "Bash(rmdir *)",
+      "Bash(chmod -R *)", "Bash(chown *)",
+      "Bash(scp *)", "Bash(rsync *)", "Bash(ssh *)", "Bash(sftp *)",
+      "Bash(docker push *)", "Bash(gh pr merge *)", "Bash(glab mr merge *)",
       "Bash(sbatch *)", "Bash(srun *)", "Bash(qsub *)"
     ]
   }
